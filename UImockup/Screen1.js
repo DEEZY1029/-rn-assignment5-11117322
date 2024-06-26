@@ -1,8 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { ScrollView, StyleSheet, Text, View , Image, Pressable , FlatList} from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import theme from './theme';
+import themeContext from './themeContext';
+import React, {useContext} from 'react';
+
 
 export default function Screen1 ({navigation}) {
+  const theme= useContext(themeContext)
   const paw =[
     { index:1,
     application:"Apple Store",
@@ -38,14 +43,14 @@ export default function Screen1 ({navigation}) {
 
   ];
   return (
-    <ScrollView style={styles.scrollView}> 
+    <ScrollView style={[{backgroundColor:theme.backgroundColor}]}> 
     <View style=
     {styles.container}>
       <View style={styles.profpic}>
       <Image source={require('./assets/profile.png')} style={{width:70, height:70}}/>
       </View>
-      <Text style={ styles.welkies}>Welcome Back,</Text>
-      <Text style={ styles.name}>Eric Atsu</Text>
+      <Text style={[ styles.welkies,{color:theme.color} ]}>Welcome Back,</Text>
+      <Text style={ [styles.name,{color:theme.color}]}>Eric Atsu</Text>
       <View style={styles.searchbuttoncontainer}>
       <Pressable style={styles.searchbutton}><Ionicons name="search-outline" size={30} color="black" /></Pressable>
       </View>
@@ -55,8 +60,8 @@ export default function Screen1 ({navigation}) {
         <View style={styles.row}>
       <Pressable style={styles.upity}><Ionicons name="arrow-up-outline" size={30} color="black" /></Pressable>
       <Pressable style={styles.upity}><Ionicons name="arrow-down-outline" size={30} color="black" /></Pressable>
-      <Pressable style={styles.upity}><Ionicons name="cloud-upload-outline" size={30} color="black" /></Pressable>
       <Pressable style={styles.upity}><Ionicons name="cash-outline" size={30} color="black" /></Pressable>
+      <Pressable style={styles.upity}><Ionicons name="cloud-upload-outline" size={30} color="black" /></Pressable>
       </View>
       <View style={styles.btt}>
       <Text style={styles.bts}> send </Text>
@@ -64,17 +69,17 @@ export default function Screen1 ({navigation}) {
       <Text style={styles.bts}> Loan </Text>
       <Text style={styles.bts}> Top-up</Text>
       </View>
-      <Text style={styles.trans}>Transaction</Text>
+      <Text style={[styles.trans,{color:theme.color}]}>Transaction</Text>
       <View style={{alignItems:'flex-end'}}>
       <Text style={styles.see}>See all</Text>
       </View>
       <FlatList 
       horizontal={false}
       data={paw}
-      renderItem={({item})=>(<View style={[styles.conco]}><Image source={item.image} style={styles.companyIcons} />
-      <Text style={{fontWeight:'bold', left:70, fontSize:20, top:10}}>{item.application}</Text>
-      <Text style={{left: 300, fontSize:16, alignItems:'flex-end', top:-12 }}>{item.debt}</Text>
-      <Text style={{fontSize: 16, top:-7, left:70}}>{item.category}</Text>
+      renderItem={({item})=>(<View style={[styles.conco,{borderColor:theme.borderColor}]}><Image source={item.image} style={styles.companyIcons} />
+      <Text style={[{fontWeight:'bold', left:70, fontSize:20, top:10},{color:theme.color}]}>{item.application}</Text>
+      <Text style={[{left: 300, fontSize:16, alignItems:'flex-end', top:-12 },{color:theme.color}]}>{item.debt}</Text>
+      <Text style={[{fontSize: 16, top:-7, left:70},{color:theme.color}]}>{item.category}</Text>
       </View>)}
         />
     </View>
@@ -83,14 +88,10 @@ export default function Screen1 ({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  scrollView:{
-    backgroundColor: '#fff',
-  },
   container:{
-    backgroundColor: '#fff',
     flex: 1,
     justifyContent:'center',
-    top:40
+   
   },
   welkies:{
     alignItems: 'flex-end',
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
     top:75,
   },
   upity:{
-    backgroundColor:'#F2F2F3',
+    backgroundColor: '#F2F2F3',
     width: 60,
     height:60,
     borderRadius: 28,
@@ -163,7 +164,8 @@ btt:{
 bts:{
 fontSize:16,
 marginHorizontal:20,
-right:1
+right:1,
+color:'grey'
 },
 trans:{
   fontSize:22,
@@ -180,14 +182,14 @@ conco:{
   marginVertical: 15,
   marginHorizontal:10,
     borderWidth: 1,
-    borderColor: 'white',
     overflow: 'hidden',
     borderRadius:24,
     margin:20,
   right:1,
   width: 370,
   height: 100,
-  backgroundColor: 'white',
+  borderColor:'white'
+ 
 },
 companyIcons:{
   width: 30, 

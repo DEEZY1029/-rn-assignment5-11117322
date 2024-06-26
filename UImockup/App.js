@@ -1,64 +1,56 @@
-
-import {Text,View} from 'react-native';
-import Screen1 from './Screen1';
-import Screen2 from './Screen2';
-import { NavigationContainer } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
+import { NavigationContainer, DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
-const Tab= createBottomTabNavigator();
+import { EventRegister } from 'react-native-event-listeners';
+import theme from './theme';
+import themeContext from './themeContext';
+import Screen1 from './Screen1';
+import Screen2 from './Screen2';
+
+const Tab = createBottomTabNavigator();
+
 export default function App() {
-  const screenOptions={
-    tabBarShowlabel:false,
-    headerShown: false,
-    tabBarStyle:{
-      position:'absolute',
-      right:0,
-      botton:0,
-      elevation:0,
-      background:'blue',
-      fontSize:20
-    }
-  }
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    const listener = EventRegister.addEventListener('ChangeTheme', (data) => {
+      setDarkMode(data);
+    });
+    return () => {
+      EventRegister.removeAllListeners(listener);
+    };
+  }, [darkMode]);
+
   return (
-    <NavigationContainer>
-      <Tab.Navigator screenOptions={screenOptions}>
-        <Tab.Screen name='Home' component={Screen1}
-        options={{
-          tabBarIcon: ({})=>{
-            return(
-          <Ionicons name="home-outline" size={30} color="black" />
-            )
-        }}
-      }
-        />
-        <Tab.Screen name='My Cards' component={Screen2} 
-         options={{
-          tabBarIcon: ({})=>{
-            return(
-          <Ionicons name="card-outline" size={30} color="black" />
-            )
-        }}
-      }
-      />
-        <Tab.Screen name='Statistics' component={Screen2} 
-         options={{
-          tabBarIcon: ({})=>{
-            return(
-          <Ionicons name="pie-chart-outline" size={30} color="black" />
-            )
-        }}
-      }
-      />
-        <Tab.Screen name="settings" component={Screen2} 
-         options={{
-          tabBarIcon: ({})=>{
-            return(
-          <Ionicons name="settings-outline" size={30} color="black" />
-            )
-        }}
-      }
-      />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <themeContext.Provider value={darkMode ? theme.dark : theme.light}>
+      <NavigationContainer theme={darkMode ? DarkTheme : DefaultTheme}>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+              if (route.name === 'Home') {
+                iconName = focused ? 'home' : 'home-outline';
+              } else if (route.name === 'My Cards') {
+                iconName = focused ? 'card' : 'card-outline';
+              } else if (route.name === 'Statistics') {
+                iconName = focused ? 'pie-chart' : 'pie-chart-outline';
+              } else if (route.name === 'Settings') {
+                iconName = focused ? 'settings' : 'settings-outline';
+              }
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+            tabBarLabelStyle: { fontSize: 16 },
+            tabBarActiveTintColor: darkMode ? 'white' : 'blue',
+            tabBarInactiveTintColor: darkMode ? 'gray' : 'gray',
+          })}
+        >
+          <Tab.Screen name="Home" component={Screen1} />
+          <Tab.Screen name="My Cards" component={Screen2} />
+          <Tab.Screen name="Statistics" component={Screen2} />
+          <Tab.Screen name="Settings" component={Screen2} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </themeContext.Provider>
   );
 }
