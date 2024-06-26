@@ -19,25 +19,22 @@ export default function Screen1 ({navigation}) {
       { index:3,
         application:"Money Transfer",
         category:'Transaction',
-        debt:'$300',
+        debt:'   $300',
         image: require('./assets/moneyTransfer.png')
         },
         { index:4,
           application:"Grocery",
           category:'Shopping',
-          debt:'-$ 88',
+          debt:'  -$ 88',
           image: require('./assets/grocery (1).png')
           },
           { index:5,
-            application:"apple",
-            category:'entertainment',
-            debt:'-$5,99'
+            application:"Fees",
+            category:'education',
+            debt:'-$8,99',
+            image: require('./assets/school.jpeg')
             },
-            { index:5,
-              application:"apple",
-              category:'entertainment',
-              debt:'-$5,99'
-              },
+            
 
   ];
   return (
@@ -56,7 +53,7 @@ export default function Screen1 ({navigation}) {
         <Image source={require('./assets/Card.png')} style={{width:370, height:230, borderRadius:20}}/>
         </View>
         <View style={styles.row}>
-      <Pressable style={styles.upity} onPress={() => navigation.navigate('Screen 2')}><Ionicons name="arrow-up-outline" size={30} color="black" /></Pressable>
+      <Pressable style={styles.upity}><Ionicons name="arrow-up-outline" size={30} color="black" /></Pressable>
       <Pressable style={styles.upity}><Ionicons name="arrow-down-outline" size={30} color="black" /></Pressable>
       <Pressable style={styles.upity}><Ionicons name="cloud-upload-outline" size={30} color="black" /></Pressable>
       <Pressable style={styles.upity}><Ionicons name="cash-outline" size={30} color="black" /></Pressable>
@@ -76,7 +73,7 @@ export default function Screen1 ({navigation}) {
       data={paw}
       renderItem={({item})=>(<View style={[styles.conco]}><Image source={item.image} style={styles.companyIcons} />
       <Text style={{fontWeight:'bold', left:70, fontSize:20, top:10}}>{item.application}</Text>
-      <Text style={{left: 300, fontSize:16, alignItems:'flex-start', top:-12 }}>{item.debt}</Text>
+      <Text style={{left: 300, fontSize:16, alignItems:'flex-end', top:-12 }}>{item.debt}</Text>
       <Text style={{fontSize: 16, top:-7, left:70}}>{item.category}</Text>
       </View>)}
         />
@@ -92,7 +89,8 @@ const styles = StyleSheet.create({
   container:{
     backgroundColor: '#fff',
     flex: 1,
-    justifyContent:'center'
+    justifyContent:'center',
+    top:40
   },
   welkies:{
     alignItems: 'flex-end',

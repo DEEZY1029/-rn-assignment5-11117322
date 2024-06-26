@@ -9,15 +9,17 @@ export default function Screen2 ({navigation}) {
     {styles.container}>
       <Text style={styles.settings}>Settings</Text>
       <View style={{alignItems:'flex-start'}}>
-      <Pressable style={styles.button}><Text style={styles.text}>Language</Text></Pressable>
-      <Pressable style={styles.button}><Text style={styles.text}>My Profile</Text></Pressable>
-      <Pressable style={styles.button}><Text style={styles.text}>Contact Us</Text></Pressable>
-      <Pressable style={styles.button}><Text style={styles.text}>Change password</Text></Pressable>
-      <Pressable style={styles.button}><Text style={styles.text}>Privacy Policy</Text></Pressable>
+      <Pressable style={styles.button}><Text style={styles.text}>Language</Text><Ionicons name="chevron-forward-outline" size={25} color="grey" left={300}/></Pressable>
+      <Pressable style={styles.button}><Text style={styles.text}>My Profile</Text><Ionicons name="chevron-forward-outline" size={25} color="grey" left={300}/></Pressable>
+      <Pressable style={styles.button}><Text style={styles.text}>Contact Us</Text><Ionicons name="chevron-forward-outline" size={25} color="grey" left={300}/>
+      </Pressable>
+      <Pressable style={styles.button}><Text style={styles.text}>Change password</Text><Ionicons name="chevron-forward-outline" size={25} color="grey" left={300}/></Pressable>
+      <Pressable style={styles.button}><Text style={styles.text}>Privacy Policy</Text><Ionicons name="chevron-forward-outline" size={25} color="grey" left={300} /></Pressable>
       </View>
       <StatusBar style="auto" />
-     
-    </View>
+     <Text style={{fontSize: 25, top:120, right:140}}> Theme </Text>
+     <Pressable><Ionicons name="toggle" size={55} color="grey" top={80} left={140} /></Pressable>
+     </View>
     </ScrollView>
   );
 }
@@ -29,7 +31,8 @@ const styles = StyleSheet.create({
   },
   container:{
     backgroundColor: '#fff',
-   alignItems:'center'
+   alignItems:'center',
+   top: 40
   },
   settings:{
     fontWeight: 'bold',
@@ -38,12 +41,12 @@ const styles = StyleSheet.create({
     
   },
   button: {
-    marginBottom:-10,
+    marginBottom:-40,
     justifyContent: 'center',
     padding:20,
     borderRadius: 15,
     elevation: 3,
-    top: 60,
+    top: 40,
     width:370,
     left: -5,
     marginVertical: 20,
@@ -52,6 +55,7 @@ const styles = StyleSheet.create({
   },
   text:{
     fontSize:20,
-    top: 10
-  }
+    top: 30
+  },
+
 });
